@@ -20,10 +20,10 @@ const Header = () => {
             </NavbarBrand>
             <NavbarContent justify="end" className='gap-2'>
                 <NavbarItem>
-                    <Button color='primary' radius='full' as={Link} href='/login'>Login</Button>
+                    <Button color='primary' radius='full' as={Link} href='/auth/login'>Login</Button>
                 </NavbarItem>
                 <NavbarItem>
-                    <Button as={Link} radius='full' color="secondary" className='text-black' href="/register">
+                    <Button as={Link} radius='full' color="secondary" className='text-black' href="/auth/register">
                         Sign Up
                     </Button>
                 </NavbarItem>
