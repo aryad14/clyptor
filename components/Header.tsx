@@ -11,7 +11,7 @@ import { Link } from '@nextui-org/link'
 
 const Header = () => {
     return (
-        <Navbar maxWidth='full' className='px-14 my-2 shadow-md'>
+        <Navbar maxWidth='full' className='md:px-14 my-2 shadow-md'>
             <NavbarBrand className='ms-auto'>
                 <p className="font-bold text-xl">
                     <span className='text-xl'>🔐 </span>
@@ -20,12 +20,7 @@ const Header = () => {
             </NavbarBrand>
             <NavbarContent justify="end" className='gap-2'>
                 <NavbarItem>
-                    <Button color='primary' radius='full' as={Link} href='/auth/login'>Login</Button>
-                </NavbarItem>
-                <NavbarItem>
-                    <Button as={Link} radius='full' color="secondary" className='text-black' href="/auth/register">
-                        Sign Up
-                    </Button>
+                    <Button color='primary' radius='full' as={Link} href='/auth/register'>Get Started</Button>
                 </NavbarItem>
             </NavbarContent>
         </Navbar>

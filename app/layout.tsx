@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import Header from "@/components/Header";
+import { db } from "@/lib/db";
 
 export const metadata: Metadata = {
   title: {
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
