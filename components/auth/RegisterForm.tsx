@@ -10,15 +10,16 @@ import { toast, Toaster } from 'react-hot-toast';
 import { register } from "@/actions/auth.register"
 
 import { useForm, SubmitHandler, Controller } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { RegisterSchema } from "@/schema"; // Adjust the import path as necessary
 
-interface IFormInput {
-    name: string;
-    email: string;
-    password: string;
-}
+type IFormInput = z.infer<typeof RegisterSchema>;
 
 const RegisterForm = () => {
-    const { control, handleSubmit, formState: { errors } } = useForm<IFormInput>();
+    const { control, handleSubmit, formState: { errors } } = useForm<IFormInput>({
+        resolver: zodResolver(RegisterSchema)
+    });
     const [isVisible, setIsVisible] = useState(false);
     const [error, setError] = useState<string | undefined>("");
     const [success, setSuccess] = useState<string | undefined>("");
@@ -66,7 +67,6 @@ const RegisterForm = () => {
                         name="name"
                         control={control}
                         defaultValue=""
-                        rules={{ required: "Name is required" }}
                         render={({ field }) => (
                             <Input
                                 {...field}
@@ -84,7 +84,6 @@ const RegisterForm = () => {
                         name="email"
                         control={control}
                         defaultValue=""
-                        rules={{ required: "Email is required" }}
                         render={({ field }) => (
                             <Input
                                 {...field}
@@ -102,7 +101,6 @@ const RegisterForm = () => {
                         name="password"
                         control={control}
                         defaultValue=""
-                        rules={{ required: "Password is required" }}
                         render={({ field }) => (
                             <Input
                                 {...field}

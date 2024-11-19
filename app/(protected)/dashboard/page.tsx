@@ -1,8 +1,12 @@
+import { auth } from '@/auth'
 import React from 'react'
 
-const Dashboard = () => {
+const Dashboard = async () => {
+  const session = await auth();
   return (
-    <div>Dashboard</div>
+    <div>
+      {JSON.stringify(session)}
+    </div>
   )
 }
 

@@ -1,3 +1,5 @@
+"use server"
+
 import React from 'react'
 import {
     Navbar,
@@ -8,8 +10,13 @@ import {
 
 import { Button } from '@nextui-org/button'
 import { Link } from '@nextui-org/link'
+import { signOut } from '@/auth'
 
-const Header = () => {
+interface HeaderProps {
+    session: any;
+}
+
+const Header = async ({ session }: HeaderProps) => {
     return (
         <Navbar maxWidth='full' className='md:px-14 my-2 shadow-md'>
             <NavbarBrand className='ms-auto'>
@@ -20,7 +27,16 @@ const Header = () => {
             </NavbarBrand>
             <NavbarContent justify="end" className='gap-2'>
                 <NavbarItem>
-                    <Button color='primary' radius='full' as={Link} href='/auth/register'>Get Started</Button>
+                    {session ? (
+                        <form action={async () => {
+                            "use server";
+                            await signOut();
+                        }}>
+                            <Button type='submit' color='primary' radius='full'>Logout</Button>
+                        </form>
+                    ) : (
+                        <Button color='primary' radius='full' as={Link} href='/auth/register'>Get Started</Button>
+                    )}
                 </NavbarItem>
             </NavbarContent>
         </Navbar>

@@ -5,6 +5,7 @@ import clsx from "clsx";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import Header from "@/components/Header";
+import { auth } from "@/auth";
 
 export const metadata: Metadata = {
   title: {
@@ -22,6 +23,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const session = await auth();
   return (
     <html suppressHydrationWarning lang="en">
       <head />
@@ -32,7 +34,7 @@ export default async function RootLayout({
         )}
       >
         <header>
-          <Header />
+          <Header session={session} />
         </header>
         <main className="">
           {children}
