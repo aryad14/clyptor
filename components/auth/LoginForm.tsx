@@ -80,7 +80,6 @@ const LoginForm = () => {
                                 label="Email"
                                 variant="bordered"
                                 className="transition-all duration-250"
-                                error={errors.email?.message}
                             />
                         )}
                     />
@@ -105,7 +104,6 @@ const LoginForm = () => {
                                 }
                                 type={isVisible ? "text" : "password"}
                                 className="flex items-center justify-center transition-all"
-                                error={errors.password?.message}
                             />
                         )}
                     />
