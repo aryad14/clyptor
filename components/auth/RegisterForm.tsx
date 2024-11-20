@@ -6,6 +6,7 @@ import { Input } from '@nextui-org/input'
 import { useState, useTransition } from 'react'
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast, Toaster } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
 
 import { register } from "@/actions/auth.register"
 
@@ -17,6 +18,7 @@ import { RegisterSchema } from "@/schema"; // Adjust the import path as necessar
 type IFormInput = z.infer<typeof RegisterSchema>;
 
 const RegisterForm = () => {
+    const router = useRouter();
     const { control, handleSubmit, formState: { errors } } = useForm<IFormInput>({
         resolver: zodResolver(RegisterSchema)
     });
@@ -40,6 +42,11 @@ const RegisterForm = () => {
                 } else {
                     setSuccess(res.message);
                     toast.success("User created!");
+                    const redirectToastId = toast.loading("Redirecting to login page...");
+                    setTimeout(() => {
+                        toast.dismiss(redirectToastId);
+                        router.push("/auth/login");
+                    }, 1000);
                 }
             }).catch((err) => {
                 toast.dismiss(toastId);
