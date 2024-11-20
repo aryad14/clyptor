@@ -34,7 +34,7 @@ export default async function RootLayout({
         )}
       >
         <header>
-          <Header session={session} />
+          <Header />
         </header>
         <main className="">
           {children}

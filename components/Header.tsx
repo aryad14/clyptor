@@ -1,5 +1,3 @@
-"use server"
-
 import React from 'react'
 import {
     Navbar,
@@ -10,13 +8,10 @@ import {
 
 import { Button } from '@nextui-org/button'
 import { Link } from '@nextui-org/link'
-import { signOut } from '@/auth'
+import { auth, signOut } from '@/auth'
 
-interface HeaderProps {
-    session: any;
-}
-
-const Header = async ({ session }: HeaderProps) => {
+const Header = async () => {
+    const session = await auth();
     return (
         <Navbar maxWidth='full' className='md:px-14 my-2 shadow-md'>
             <NavbarBrand className='ms-auto'>
