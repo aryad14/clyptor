@@ -38,7 +38,7 @@ export const {
             return token
         }
     },
-    adapter: PrismaAdapter({ prisma: db }),
+    adapter: PrismaAdapter(db),
     session: {
         strategy: "jwt",
     },
