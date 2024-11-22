@@ -1,6 +1,5 @@
-import authConfig from "@/auth.config"
-import NextAuth from "next-auth"
-
+import authConfig from "@/auth.config";
+import NextAuth from "next-auth";
 import {
     DEFAULT_LOGIN_REDIRECT,
     apiAuthPrefix,
@@ -8,7 +7,10 @@ import {
     publicRoutes,
 } from "@/routes";
 
-const { auth } = NextAuth(authConfig)
+import { NextResponse } from "next/server";
+
+const { auth } = NextAuth(authConfig);
+
 export default auth(async function middleware(req) {
     const { nextUrl } = req;
     const isLoggedIn = !!req.auth;
@@ -18,22 +20,22 @@ export default auth(async function middleware(req) {
     const isAuthRoute = authRoutes.includes(nextUrl.pathname);
 
     if (isApiAuthRoute) {
-        return null;
+        return NextResponse.next();
     }
 
     if (isAuthRoute) {
         if (isLoggedIn) {
-            return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
+            return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, req.url));
         }
-        return null;
+        return NextResponse.next(); // Continue to auth route
     }
 
     if (!isLoggedIn && !isPublicRoute) {
-        return Response.redirect(new URL("/auth/login", nextUrl));
+        return NextResponse.redirect(new URL("/auth/login", req.url));
     }
 
-    return null;
-})
+    return NextResponse.next(); // Allow the request to proceed
+});
 
 export const config = {
     matcher: [
@@ -42,4 +44,4 @@ export const config = {
         // Always run for API routes
         '/(api|trpc)(.*)',
     ],
-}
+};
