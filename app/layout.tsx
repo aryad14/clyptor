@@ -6,6 +6,8 @@ import { siteConfig } from "@/config/site";
 import Header from "@/components/Header";
 import { Figtree } from "next/font/google"
 
+import { auth } from "@/auth";
+
 export const metadata: Metadata = {
   title: {
     default: siteConfig.name,
@@ -24,6 +26,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const session = await auth();
   return (
     <html suppressHydrationWarning lang="en">
       <head />
@@ -34,7 +37,7 @@ export default async function RootLayout({
         )}
       >
         <header>
-          <Header />
+          <Header session={session} />
         </header>
         <main className="">
           {children}

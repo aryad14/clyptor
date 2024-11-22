@@ -8,10 +8,9 @@ import {
 
 import { Button } from '@nextui-org/button'
 import { Link } from '@nextui-org/link'
-import { auth, signOut } from '@/auth'
+import { signOut } from '@/auth'
 
-const Header = async () => {
-    const session = await auth();
+const Header = ({ session }: { session: any }) => {
     return (
         <Navbar maxWidth='full' className='md:px-14 my-2 shadow-md'>
             <NavbarBrand className='ms-auto'>

@@ -3,7 +3,7 @@
 import FormWrapper from "@/components/auth/FormWrapper"
 import { Button } from "@nextui-org/button";
 import { Input } from '@nextui-org/input'
-import { useState, useTransition } from 'react'
+import { useState, useTransition, useEffect, useRef } from 'react'
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { toast, Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
@@ -26,6 +26,18 @@ const LoginForm = () => {
     const [error, setError] = useState<string | undefined>("");
     const [success, setSuccess] = useState<string | undefined>("");
     const [isPending, startTransition] = useTransition();
+
+    const hasRun = useRef(false); // Track if the effect has already run
+    useEffect(() => {
+        if (!hasRun.current) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const error = urlParams.get("error");
+            if (error) {
+                toast.error('An account with this email already exists.');
+            }
+            hasRun.current = true; // Set to true after the effect runs
+        }
+    }, [router]);
 
     const toggleVisibility = () => setIsVisible(!isVisible);
 
