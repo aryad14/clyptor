@@ -17,7 +17,7 @@ export const {
         error: "/auth/error",
     },
     events: {
-        async linkAccount({user}) {
+        async linkAccount({ user }) {
             await db.user.update({
                 where: {
                     id: user.id
@@ -29,6 +29,24 @@ export const {
         }
     },
     callbacks: {
+        async signIn({ user, account }) {
+            //This will only allow OAuth providers to sign in without email verification
+            if (account?.provider !== "credentials") return true
+
+            // if user is not found or email is not verified sign in is not allowed
+            if (!user.id) {
+                return false;
+            }
+
+            const existingUser = await getUserById(user.id);
+
+            // if user is not found or email is not verified sign in is not allowed
+            if (!existingUser || !existingUser.emailVerified) {
+                return false;
+            }
+
+            return true;
+        },
         async session({ session, token }) {
             // this is to access the user id from database in both client and server components
             if (token.sub && session.user) {

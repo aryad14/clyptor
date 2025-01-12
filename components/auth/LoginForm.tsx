@@ -53,8 +53,9 @@ const LoginForm = () => {
                         setError(res.error);
                         toast.error(res.error);
                     } else {
-                        toast.success("Login Success!");
-                        router.push("/dashboard"); // Redirect to the dashboard
+                        setSuccess(res?.success);
+                        toast.success("Confirmation Email is Sent. Please check your email.");
+                        // router.push("/dashboard"); // Redirect to the dashboard
                     }
                 }).catch((err) => {
                     toast.dismiss(toastId);

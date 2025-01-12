@@ -41,12 +41,12 @@ const RegisterForm = () => {
                     toast.error(res.error);
                 } else {
                     setSuccess(res.message);
-                    toast.success("User created!");
-                    const redirectToastId = toast.loading("Redirecting to login page...");
-                    setTimeout(() => {
-                        toast.dismiss(redirectToastId);
-                        router.push("/auth/login");
-                    }, 1000);
+                    toast.success("Account created successfully. Please check your email for a verification link.");
+                    // const redirectToastId = toast.loading("Redirecting to login page...");
+                    // setTimeout(() => {
+                    //     toast.dismiss(redirectToastId);
+                    //     router.push("/auth/login");
+                    // }, 1000);
                 }
             }).catch((err) => {
                 toast.dismiss(toastId);
