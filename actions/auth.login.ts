@@ -8,6 +8,7 @@ import { LoginSchema } from '@/schema'
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
 import { generateVerificationToken } from '@/lib/tokens'
 import { getUserByEmail } from '@/lib/getUser'
+import { sendVerificationEmail } from '@/lib/mail'
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
     const validatedFields = LoginSchema.safeParse(values);
@@ -25,6 +26,11 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     // this condition can be skipped as a fallback is already provided in auth.ts
     if(!existingUser.emailVerified) {
         const verificationToken = await generateVerificationToken(existingUser.email);
+
+        await sendVerificationEmail(
+            verificationToken.email,
+            verificationToken.token
+        )
 
         return {success: "Verification email is already sent. Please check your email."}
     }

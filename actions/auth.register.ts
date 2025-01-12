@@ -3,6 +3,7 @@
 import { db } from "@/lib/db"
 import bcrypt from "bcryptjs"
 import { generateVerificationToken } from "@/lib/tokens"
+import { sendVerificationEmail } from "@/lib/mail"
 
 interface RegisterArgs {
     name: string
@@ -36,6 +37,10 @@ export const register = async ({ name, email, password }: RegisterArgs) => {
     })
 
     const verificationToken = await generateVerificationToken(email)
+    await sendVerificationEmail(
+        verificationToken.email, 
+        verificationToken.token
+    )
 
     return {
         status: "200",
