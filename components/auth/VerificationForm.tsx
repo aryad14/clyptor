@@ -22,7 +22,7 @@ export const VerificationForm = () => {
 
     const onSubmit = useCallback(() => {
         if (!token) {
-            setError("Token not Found")
+            setError("❌ Token not Found")
             return;
         }
 
@@ -64,8 +64,18 @@ export const VerificationForm = () => {
                             color="black"
                         ></l-line-wobble>
                     )}
-                    {success}
-                    {error}
+                    <div>
+                        {success && !error &&
+                            <div className="bg-green-300 w-full text-center">
+                                {`✅` + success}
+                            </div>
+                        }
+                        {error && !success &&
+                            <div className="bg-red-200 w-full text-center p-3 rounded-lg">
+                                {error}
+                            </div>
+                        }
+                    </div>
                 </div>
             </FormWrapper>
         </>

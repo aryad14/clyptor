@@ -45,7 +45,7 @@ const LoginForm = () => {
     const onSubmit: SubmitHandler<IFormInput> = (data) => {
         setError("");
         setSuccess("");
-        const toastId = toast.loading("Trying to get in!!");
+        const toastId = toast.loading("Please Wait");
         startTransition(() => {
             login(data)
                 .then((res) => {
@@ -55,7 +55,9 @@ const LoginForm = () => {
                         toast.error(res.error);
                     } else {
                         setSuccess(res?.success);
-                        toast.success("Confirmation Email is Sent. Please check your email.");
+                        if (res?.success) {
+                            toast.success(res.success);
+                        }
                         // router.push("/dashboard"); // Redirect to the dashboard
                     }
                 }).catch((err) => {
