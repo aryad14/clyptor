@@ -2,6 +2,7 @@
 
 import FormWrapper from "@/components/auth/FormWrapper"
 import { Button } from "@nextui-org/button";
+import { Link } from "@nextui-org/link";
 import { Input } from '@nextui-org/input'
 import { useState, useTransition, useEffect, useRef } from 'react'
 import { FaEye, FaEyeSlash } from "react-icons/fa";
@@ -120,6 +121,7 @@ const LoginForm = () => {
                             />
                         )}
                     />
+                    <Link size="sm" className="px-1" href={"/auth/reset"}>Forgot Password</Link>
                     <Button color="primary" radius="full" type="submit">Login</Button>
                 </form>
             </FormWrapper>
