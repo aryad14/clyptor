@@ -8,15 +8,15 @@ import * as z from "zod"
 
 export const resetPass = async (values: z.infer<typeof ResetSchema>) => {
     const validatedFields = ResetSchema.safeParse(values)
-    if(!validatedFields.success) {
-        return {error: "Invalid Credentials"}
+    if (!validatedFields.success) {
+        return { error: "Invalid Credentials" }
     }
 
-    const {email} = validatedFields.data
+    const { email } = validatedFields.data
 
     const existingUser = await getUserByEmail(email)
-    if(!existingUser) {
-        return {error: "Email not found!"}
+    if (!existingUser) {
+        return { error: "Email not found!" }
     }
 
     const passResetToken = await generatePasswordResetToken(email)
@@ -25,5 +25,5 @@ export const resetPass = async (values: z.infer<typeof ResetSchema>) => {
         passResetToken.token
     )
 
-    return {success: "Reset email sent!"}
+    return { success: "Reset email sent!" }
 }

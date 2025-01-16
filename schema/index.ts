@@ -15,6 +15,14 @@ export const ResetSchema = z.object({
     }),
 })
 
+export const NewPassSchema = z.object({
+    password: z.string().min(8, "Password must be at least 8 characters long"),
+    confirmPassword: z.string().min(8, "Password must be at least 8 characters long"),
+}).refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"], // Set the path of the error
+});
+
 export const RegisterSchema = z.object({
     email: z.string().email({
         message: "Email is required",
