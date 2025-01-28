@@ -24,6 +24,7 @@ const LoginForm = () => {
         resolver: zodResolver(LoginSchema)
     });
     const [isVisible, setIsVisible] = useState(false);
+    const [show2FA, setShow2FA] = useState(false);
     const [error, setError] = useState<string | undefined>("");
     const [success, setSuccess] = useState<string | undefined>("");
     const [isPending, startTransition] = useTransition();

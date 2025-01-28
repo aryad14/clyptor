@@ -6,9 +6,9 @@ import { AuthError } from 'next-auth'
 import { signIn } from '@/auth'
 import { LoginSchema } from '@/schema'
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes'
-import { generateVerificationToken } from '@/lib/tokens'
 import { getUserByEmail } from '@/lib/getUser'
-import { sendVerificationEmail } from '@/lib/mail'
+import { sendVerificationEmail, sendTwoFactorTokenMail } from '@/lib/mail'
+import { generateTwoFactorToken, generateVerificationToken } from '@/lib/tokens'
 
 export const login = async (values: z.infer<typeof LoginSchema>) => {
     const validatedFields = LoginSchema.safeParse(values);
@@ -19,12 +19,12 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
     const { email, password } = validatedFields.data;
 
     const existingUser = await getUserByEmail(email);
-    if(!existingUser || !existingUser.email || !existingUser.password) {
-        return {error: "Email not found"}
+    if (!existingUser || !existingUser.email || !existingUser.password) {
+        return { error: "Email not found" }
     }
 
     // this condition can be skipped as a fallback is already provided in auth.ts
-    if(!existingUser.emailVerified) {
+    if (!existingUser.emailVerified) {
         const verificationToken = await generateVerificationToken(existingUser.email);
 
         await sendVerificationEmail(
@@ -32,9 +32,16 @@ export const login = async (values: z.infer<typeof LoginSchema>) => {
             verificationToken.token
         )
 
-        return {success: "Verification email is already sent. Please check your email."}
+        return { success: "Verification email is already sent. Please check your email." }
     }
 
+    if (existingUser.isTwoFactorEnabled && existingUser.email) {
+        const twoFactorToken = await generateTwoFactorToken(existingUser.email);
+        await sendTwoFactorTokenMail(twoFactorToken.email, twoFactorToken.token);
+        return {
+            twoFactor: true
+        }
+    }
 
     try {
         await signIn("credentials", {
