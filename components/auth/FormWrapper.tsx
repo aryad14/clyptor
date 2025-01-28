@@ -5,7 +5,7 @@ import {
     CardHeader,
     CardBody,
     CardFooter
-} from '@nextui-org/card'
+} from "@heroui/card"
 import Socials from './Socials'
 import Link from 'next/link'
 

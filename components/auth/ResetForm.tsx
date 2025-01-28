@@ -1,8 +1,8 @@
 "use client"
 
 import FormWrapper from "@/components/auth/FormWrapper"
-import { Button } from "@nextui-org/button";
-import { Input } from '@nextui-org/input'
+import { Button } from "@heroui/button";
+import { Input } from "@heroui/input"
 import { useState, useTransition } from 'react'
 import { toast, Toaster } from 'react-hot-toast';
 import { useRouter } from 'next/navigation';

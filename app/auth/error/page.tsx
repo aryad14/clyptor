@@ -4,9 +4,9 @@ import {
     CardHeader,
     CardBody,
     CardFooter
-} from "@nextui-org/card"
-import { Button } from '@nextui-org/button'
-import { Link } from '@nextui-org/link'
+} from "@heroui/card"
+import { Button } from "@heroui/button"
+import { Link } from "@heroui/link"
 
 const page = () => {
     return (

@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { useSearchParams } from "next/navigation";
-import { Button } from '@nextui-org/button'
+import { Button } from "@heroui/button"
 import { FcGoogle } from "react-icons/fc";
 import { RxGithubLogo } from "react-icons/rx";
 import { FaDiscord } from 'react-icons/fa';
