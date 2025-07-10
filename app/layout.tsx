@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import { Figtree } from "next/font/google"
 
 import { auth } from "@/auth";
+import { SessionProvider } from "next-auth/react"
 
 export const metadata: Metadata = {
   title: {
@@ -36,12 +37,14 @@ export default async function RootLayout({
           figtree.className
         )}
       >
-        <header>
-          <Header session={session} />
-        </header>
-        <main className="">
-          {children}
-        </main>
+        <SessionProvider>
+          <header>
+            <Header session={session} />
+          </header>
+          <main className="">
+            {children}
+          </main>
+        </SessionProvider>
       </body>
     </html>
   );
