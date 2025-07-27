@@ -7,6 +7,8 @@ import { FcGoogle } from "react-icons/fc";
 import { RxGithubLogo } from "react-icons/rx";
 import { FaDiscord } from 'react-icons/fa';
 
+import { Icon } from "@iconify/react";
+
 import { signIn } from "next-auth/react";
 import { DEFAULT_LOGIN_REDIRECT } from "@/routes";
 
@@ -29,7 +31,7 @@ const Socials = () => {
                 className="w-full bg-white border hover:bg-secondary"
                 onClick={() => onClick("google")}
             >
-                <FcGoogle size={22} />
+                <Icon icon="devicon:google" width="128" height="128" />
             </Button>
             <Button
                 radius='full'
@@ -37,7 +39,7 @@ const Socials = () => {
                 className="w-full bg-white border group hover:bg-[#0d1117]"
                 onClick={() => onClick("github")}
             >
-                <RxGithubLogo size={22} className=' group-hover:text-white transition-all' />
+                <Icon icon="devicon:github" width="128" height="128" />
             </Button>
             <Button
                 radius='full'
@@ -45,7 +47,7 @@ const Socials = () => {
                 className="w-full bg-white border hover:bg-[#5661ea] group"
                 onClick={() => onClick("discord")}
             >
-                <FaDiscord size={22} className='text-[#5661ea] group-hover:text-white transition-all' />
+                <Icon icon="logos:discord-icon" width="256" height="199" />
             </Button>
         </div>
     )

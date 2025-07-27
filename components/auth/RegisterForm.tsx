@@ -114,15 +114,15 @@ const RegisterForm = () => {
                                 isRequired
                                 label="Password"
                                 variant="bordered"
-                                endContent={
-                                    <button className="focus:outline-none flex items-center justify-center" type="button" onClick={toggleVisibility} aria-label="toggle password visibility">
-                                        {isVisible ? (
-                                            <FaEyeSlash className="text-2xl text-default-400 pointer-events-none" />
-                                        ) : (
-                                            <FaEye className="text-2xl text-default-400 pointer-events-none" />
-                                        )}
-                                    </button>
-                                }
+                                // endContent={
+                                //     <button className="focus:outline-none flex items-center justify-center" type="button" onClick={toggleVisibility} aria-label="toggle password visibility">
+                                //         {isVisible ? (
+                                //             <FaEyeSlash className="text-2xl text-default-400 pointer-events-none" />
+                                //         ) : (
+                                //             <FaEye className="text-2xl text-default-400 pointer-events-none" />
+                                //         )}
+                                //     </button>
+                                // }
                                 type={isVisible ? "text" : "password"}
                                 className="flex items-center justify-center transition-all"
                             />

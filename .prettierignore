@@ -1,0 +1,30 @@
+# .prettierignore
+node_modules
+build
+dist
+.next
+out
+coverage
+public
+*.lock
+package*.json
+yarn.lock
+pnpm-lock.yaml
+.env*
+*.md
+*.svg
+*.png
+*.jpg
+*.jpeg
+*.ico
+
+# Ignore all generated files
+*.min.js
+*.min.css
+
+# Ignore Prisma and other generated folders
+prisma/migrations
+prisma/generated
+
+# Ignore all files in .eslintignore
+.eslintignore

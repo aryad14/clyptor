@@ -1,83 +1,83 @@
-"use client"
+"use client";
 
-import { lineWobble } from "ldrs"
-import FormWrapper from "./FormWrapper"
-import { toast, Toaster } from 'react-hot-toast';
+import FormWrapper from "./FormWrapper";
+import { toast, Toaster } from "react-hot-toast";
 
-import { useSearchParams } from "next/navigation"
-import { useCallback, useEffect, useState, useRef } from "react"
+import { useSearchParams } from "next/navigation";
+import { useCallback, useEffect, useState, useRef } from "react";
 
-import { Verify } from "@/actions/auth.verify"
+import { Verify } from "@/actions/auth.verify";
+
+import { LineWobble } from 'ldrs/react'
+import 'ldrs/react/LineWobble.css'
 
 export const VerificationForm = () => {
-    lineWobble.register()
+//   lineWobble.register();
 
-    const searchParams = useSearchParams();
-    const token = searchParams.get("token");
+  const searchParams = useSearchParams();
+  const token = searchParams.get("token");
 
-    const [error, setError] = useState<string | undefined>()
-    const [success, setSuccess] = useState<string | undefined>()
+  const [error, setError] = useState<string | undefined>();
+  const [success, setSuccess] = useState<string | undefined>();
 
-    const effectRun = useRef(false);
+  const effectRun = useRef(false);
 
-    const onSubmit = useCallback(() => {
-        if (!token) {
-            setError("❌ Token not Found")
-            return;
-        }
+  const onSubmit = useCallback(() => {
+    if (!token) {
+      setError("❌ Token not Found");
+      return;
+    }
 
-        Verify(token)
-            .then((data) => {
-                setSuccess(data.success)
-                setError(data.error)
-            })
-            .catch(() => {
-                setError("Something went wrong!")
-            })
-    }, [token])
+    Verify(token)
+      .then((data) => {
+        setSuccess(data.success);
+        setError(data.error);
+      })
+      .catch(() => {
+        setError("Something went wrong!");
+      });
+  }, [token]);
 
-    useEffect(() => {
-        if (!effectRun.current) {
-            effectRun.current = true;
-            onSubmit()
-        }
-    }, [onSubmit])
+  useEffect(() => {
+    if (!effectRun.current) {
+      effectRun.current = true;
+      onSubmit();
+    }
+  }, [onSubmit]);
 
-    return (
-        <>
-            <Toaster
-                position="top-center"
-                reverseOrder={false}
+  return (
+    <>
+      <Toaster position="top-center" reverseOrder={false} />
+      <FormWrapper
+        title="Confirming your Email"
+        backBtnLabel="Back to Login"
+        backBtnHref="/auth/login"
+      >
+        <div className="flex items-center w-full justify-center">
+          {!success && !error && (
+            // Default values shown
+            <LineWobble
+              size="80"
+              stroke="5"
+              bgOpacity="0.1"
+              speed="1.75"
+              color="black"
             />
-            <FormWrapper
-                title="Confirming your Email"
-                backBtnLabel="Back to Login"
-                backBtnHref="/auth/login"
-            >
-                <div className="flex items-center w-full justify-center">
-                    {!success && !error && (
-                        <l-line-wobble
-                            size="80"
-                            stroke="5"
-                            bg-opacity="0.1"
-                            speed="1.75"
-                            color="black"
-                        ></l-line-wobble>
-                    )}
-                    <div>
-                        {success && !error &&
-                            <div className="bg-green-300 w-full text-center">
-                                {`✅` + success}
-                            </div>
-                        }
-                        {error && !success &&
-                            <div className="bg-red-200 w-full text-center p-3 rounded-lg">
-                                {error}
-                            </div>
-                        }
-                    </div>
-                </div>
-            </FormWrapper>
-        </>
-    )
-}
+          )}
+          <div>
+            {success && !error && (
+              <div className="bg-green-300 w-full text-center">
+                {`✅` + success}
+              </div>
+            )}
+            {error && !success && (
+              <div className="bg-red-200 w-full text-center p-3 rounded-lg">
+                {error}
+              </div>
+            )}
+          </div>
+        </div>
+      </FormWrapper>
+    </>
+  );
+};
